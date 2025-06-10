@@ -1,0 +1,20 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  gateway.api:
+    build:
+      context: "C:\\Users\\Usuario\\RiderProjects\\NextBid\\APIGateways\\API-Gateway"
+      dockerfile: "Gateway.API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Gateway.API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "gatewayapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\Usuario\\RiderProjects\\NextBid\\APIGateways\\API-Gateway\\Gateway.API:/app:rw"
+    - "C:\\Users\\Usuario\\RiderProjects\\NextBid\\APIGateways\\API-Gateway:/src:rw"
+    - "C:\\Users\\Usuario\\.nuget\\packages:/root/.nuget/packages"
+    working_dir: "/app"

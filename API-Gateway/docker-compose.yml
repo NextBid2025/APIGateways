@@ -1,0 +1,26 @@
+services:
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: Gateway.API/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    networks:
+      - gateway-network
+
+  usuarios.api:
+    image: ${DOCKER_REGISTRY-}usuariosapi
+    build:
+      context: ../../CrearUsuario/Usuarios.-Microservice/
+      dockerfile: Usuarios.API/Dockerfile
+    ports:
+      - "5100:5100"
+      - "5101:5101"
+    networks:
+      - gateway-network
+
+networks:
+  gateway-network:
+    driver: bridge

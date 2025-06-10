@@ -1,0 +1,17 @@
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Gateway.API.deps.json
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Gateway.API.runtimeconfig.json
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\appsettings.Development.json
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\appsettings.json
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Gateway.API.staticwebassets.endpoints.json
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Gateway.API.exe
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Gateway.API.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Yarp.ReverseProxy.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Microsoft.OpenApi.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\System.IO.Hashing.dll
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\bin\Debug\Gateway.API.pdb
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+C:\Users\anale\OneDrive\Documentos\UCAB\DESA\Prueba\Git_Prueba_DSW25\API_Gateway\API-Gateway\obj\Debug\docker-c.35A3FFBA.Up2Date
