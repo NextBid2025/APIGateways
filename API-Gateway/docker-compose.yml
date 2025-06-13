@@ -20,7 +20,9 @@ services:
       context: ../../Microservicio-Producto/
       dockerfile: Productos.API/Dockerfile
     ports:
-      - "5100:5100"
+      - "5600:5600"
+ 
+     
     networks:
       - gateway-network
     environment:
@@ -30,7 +32,7 @@ services:
       - RABBIT_QUEUE=productos_queue
       - RABBIT_QUEUE_UPDATE=productosUpdate_queue
       - RABBIT_QUEUE_DELETE=productosdelete_queue
-  
+      - ASPNETCORE_URLS=http://+:5600
   puja.api:
     image: ${DOCKER_REGISTRY-}pujaapi
     build:
@@ -47,6 +49,7 @@ services:
       - RABBIT_QUEUE=pujas_queue
       - RABBIT_QUEUE_UPDATE=pujasUpdate_queue
       - RABBIT_QUEUE_DELETE=pujasdelete_queue
+      - ASPNETCORE_URLS=http://+:5201
       
 
   subasta.api:

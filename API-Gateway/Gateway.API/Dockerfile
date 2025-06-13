@@ -4,8 +4,8 @@ ARG APP_UID=1000
 RUN adduser --uid $APP_UID --disabled-password --gecos "" appuser
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 5000
+EXPOSE 5001 
 
 # Etapa build: compila el proyecto
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build

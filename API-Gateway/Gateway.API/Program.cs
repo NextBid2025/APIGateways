@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // Agrega servicios de YARP Reverse Proxy
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 
 // Agrega limitador de tasa
 builder.Services.AddRateLimiter(rateLimiterOptions =>
@@ -21,7 +23,7 @@ builder.Services.AddRateLimiter(rateLimiterOptions =>
 });
 
 var app = builder.Build();
-
+app.MapGet("/health", () => Results.Ok("Healthy"));
 // Configura el pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
