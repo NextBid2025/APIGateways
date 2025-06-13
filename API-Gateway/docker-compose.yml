@@ -11,6 +11,8 @@ services:
       - "5001:5001"
     networks:
       - gateway-network
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
 
   productos.api:
     image: ${DOCKER_REGISTRY-}productosapi
@@ -28,15 +30,14 @@ services:
       - RABBIT_QUEUE=productos_queue
       - RABBIT_QUEUE_UPDATE=productosUpdate_queue
       - RABBIT_QUEUE_DELETE=productosdelete_queue
-      
-    
+  
   puja.api:
-    image: ${DOCKER_REGISTRY-}subastaapi
+    image: ${DOCKER_REGISTRY-}pujaapi
     build:
-      context: ../../MicroServicio-Pujas/Puja.API
+      context: ../../Microservicio-Pujas/Puja
       dockerfile: Puja.API/Dockerfile
     ports:
-      - "5201:5200"
+      - "5201:5201"
     networks:
       - gateway-network
     environment:
@@ -44,8 +45,9 @@ services:
       - RABBIT_USERNAME=xonggmoj
       - RABBIT_PASSWORD=CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
       - RABBIT_QUEUE=pujas_queue
-      - RABBIT_QUEUE_UPDATE=update-puja-queue
-      - RABBIT_QUEUE_DELETE=delete-puja-queue
+      - RABBIT_QUEUE_UPDATE=pujasUpdate_queue
+      - RABBIT_QUEUE_DELETE=pujasdelete_queue
+      
 
   subasta.api:
     image: ${DOCKER_REGISTRY-}subastaapi
@@ -63,7 +65,6 @@ services:
       - RABBIT_QUEUE=subasta_queue
       - RABBIT_QUEUE_UPDATE=update-subasta-queue
       - RABBIT_QUEUE_DELETE=delete-subasta-queue
-    
 
   users.api:
     image: ${DOCKER_REGISTRY-}usersapi
@@ -71,7 +72,7 @@ services:
       context: ../../Microservicio-Usuario/Users.API
       dockerfile: Users.API/Dockerfile
     ports:
-      - "5103:5200"
+      - "5103:5103"
     networks:
       - gateway-network
     environment:
@@ -81,7 +82,7 @@ services:
       - RABBIT_QUEUE=Users_queue
       - RABBIT_QUEUE_UPDATE=UsersUpdate_queue
       - RABBIT_QUEUE_DELETE=UsersDelete_queue
-    
+
   rabbitmq:
     image: rabbitmq:3-management
     ports:
