@@ -16,5 +16,5 @@ services:
     volumes:
     - "C:\\Users\\Usuario\\RiderProjects\\NextBid\\APIGateways\\API-Gateway\\Gateway.API:/app:rw"
     - "C:\\Users\\Usuario\\RiderProjects\\NextBid\\APIGateways\\API-Gateway:/src:rw"
-    - "C:\\Users\\Usuario\\.nuget\\packages:/root/.nuget/packages"
+    - "C:\\Users\\Usuario\\.nuget\\packages:/home/app/.nuget/packages"
     working_dir: "/app"

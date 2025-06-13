@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   gateway.api:
     image: ${DOCKER_REGISTRY-}gatewayapi
@@ -10,14 +12,81 @@ services:
     networks:
       - gateway-network
 
-  usuarios.api:
-    image: ${DOCKER_REGISTRY-}usuariosapi
+  productos.api:
+    image: ${DOCKER_REGISTRY-}productosapi
     build:
-      context: ../../CrearUsuario/Usuarios.-Microservice/
-      dockerfile: Usuarios.API/Dockerfile
+      context: ../../Microservicio-Producto/
+      dockerfile: Productos.API/Dockerfile
     ports:
       - "5100:5100"
-      - "5101:5101"
+    networks:
+      - gateway-network
+    environment:
+      - RABBIT_URL=amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      - RABBIT_USERNAME=xonggmoj
+      - RABBIT_PASSWORD=CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      - RABBIT_QUEUE=productos_queue
+      - RABBIT_QUEUE_UPDATE=productosUpdate_queue
+      - RABBIT_QUEUE_DELETE=productosdelete_queue
+      
+    
+  puja.api:
+    image: ${DOCKER_REGISTRY-}subastaapi
+    build:
+      context: ../../MicroServicio-Pujas/Puja.API
+      dockerfile: Puja.API/Dockerfile
+    ports:
+      - "5201:5200"
+    networks:
+      - gateway-network
+    environment:
+      - RABBIT_URL=amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      - RABBIT_USERNAME=xonggmoj
+      - RABBIT_PASSWORD=CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      - RABBIT_QUEUE=pujas_queue
+      - RABBIT_QUEUE_UPDATE=update-puja-queue
+      - RABBIT_QUEUE_DELETE=delete-puja-queue
+
+  subasta.api:
+    image: ${DOCKER_REGISTRY-}subastaapi
+    build:
+      context: ../../MicroServicio_Subasta/Subasta.API
+      dockerfile: Subasta.API/Dockerfile
+    ports:
+      - "5200:5200"
+    networks:
+      - gateway-network
+    environment:
+      - RABBIT_URL=amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      - RABBIT_USERNAME=xonggmoj
+      - RABBIT_PASSWORD=CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      - RABBIT_QUEUE=subasta_queue
+      - RABBIT_QUEUE_UPDATE=update-subasta-queue
+      - RABBIT_QUEUE_DELETE=delete-subasta-queue
+    
+
+  users.api:
+    image: ${DOCKER_REGISTRY-}usersapi
+    build:
+      context: ../../Microservicio-Usuario/Users.API
+      dockerfile: Users.API/Dockerfile
+    ports:
+      - "5103:5200"
+    networks:
+      - gateway-network
+    environment:
+      - RABBIT_URL=amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      - RABBIT_USERNAME=xonggmoj
+      - RABBIT_PASSWORD=CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      - RABBIT_QUEUE=Users_queue
+      - RABBIT_QUEUE_UPDATE=UsersUpdate_queue
+      - RABBIT_QUEUE_DELETE=UsersDelete_queue
+    
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - gateway-network
 
