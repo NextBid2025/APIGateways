@@ -68,7 +68,8 @@ services:
       - RABBIT_QUEUE=subasta_queue
       - RABBIT_QUEUE_UPDATE=update-subasta-queue
       - RABBIT_QUEUE_DELETE=delete-subasta-queue
-
+      
+      - ASPNETCORE_URLS=http://+:5200
   users.api:
     image: ${DOCKER_REGISTRY-}usersapi
     build:
@@ -85,6 +86,7 @@ services:
       - RABBIT_QUEUE=Users_queue
       - RABBIT_QUEUE_UPDATE=UsersUpdate_queue
       - RABBIT_QUEUE_DELETE=UsersDelete_queue
+      - ASPNETCORE_URLS=http://+:5103
 
   rabbitmq:
     image: rabbitmq:3-management
