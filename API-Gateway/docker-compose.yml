@@ -49,7 +49,12 @@ services:
       - RABBIT_QUEUE=pujas_queue
       - RABBIT_QUEUE_UPDATE=pujasUpdate_queue
       - RABBIT_QUEUE_DELETE=pujasdelete_queue
+      - MONGODB_CNN_READ=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_NAME_READ=Puja_Read
+      - MONGODB_NAME_WRITE=Puja_Write
       - ASPNETCORE_URLS=http://+:5201
+      - SUBASTA_SERVICE_URL=http://subasta.api:5200
       
 
   subasta.api:
@@ -68,8 +73,11 @@ services:
       - RABBIT_QUEUE=subasta_queue
       - RABBIT_QUEUE_UPDATE=update-subasta-queue
       - RABBIT_QUEUE_DELETE=delete-subasta-queue
-      
       - ASPNETCORE_URLS=http://+:5200
+      - MONGODB_CNN_READ=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_NAME_READ=subasta_read
+      - MONGODB_NAME_WRITE=subasta_write
   users.api:
     image: ${DOCKER_REGISTRY-}usersapi
     build:
