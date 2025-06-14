@@ -1,0 +1,146 @@
+name: dockercompose4229663052195479154
+services:
+  gateway.api:
+    build:
+      context: C:\Users\Usuario\RiderProjects\NextBid\APIGateways\API-Gateway
+      dockerfile: Gateway.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: gatewayapi
+    networks:
+      gateway-network: null
+    ports:
+      - mode: ingress
+        target: 5000
+        published: "5000"
+        protocol: tcp
+      - mode: ingress
+        target: 5001
+        published: "5001"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\Usuario\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\Usuario\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\Usuario\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\Usuario\AppData\Roaming/ASP.NET/Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+  productos.api:
+    build:
+      context: C:\Users\Usuario\RiderProjects\NextBid\Microservicio-Producto
+      dockerfile: Productos.API/Dockerfile
+    environment:
+      RABBIT_PASSWORD: CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      RABBIT_QUEUE: productos_queue
+      RABBIT_QUEUE_DELETE: productosdelete_queue
+      RABBIT_QUEUE_UPDATE: productosUpdate_queue
+      RABBIT_URL: amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      RABBIT_USERNAME: xonggmoj
+    image: productosapi
+    networks:
+      gateway-network: null
+    ports:
+      - mode: ingress
+        target: 5100
+        published: "5100"
+        protocol: tcp
+  puja.api:
+    build:
+      context: C:\Users\Usuario\RiderProjects\NextBid\MicroServicio-Pujas\Puja.API
+      dockerfile: Puja.API/Dockerfile
+    environment:
+      RABBIT_PASSWORD: CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      RABBIT_QUEUE: pujas_queue
+      RABBIT_QUEUE_DELETE: delete-puja-queue
+      RABBIT_QUEUE_UPDATE: update-puja-queue
+      RABBIT_URL: amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      RABBIT_USERNAME: xonggmoj
+    image: subastaapi
+    networks:
+      gateway-network: null
+    ports:
+      - mode: ingress
+        target: 5200
+        published: "5201"
+        protocol: tcp
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      gateway-network: null
+    ports:
+      - mode: ingress
+        target: 5672
+        published: "5672"
+        protocol: tcp
+      - mode: ingress
+        target: 15672
+        published: "15672"
+        protocol: tcp
+  subasta.api:
+    build:
+      context: C:\Users\Usuario\RiderProjects\NextBid\MicroServicio_Subasta\Subasta.API
+      dockerfile: Subasta.API/Dockerfile
+    environment:
+      RABBIT_PASSWORD: CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      RABBIT_QUEUE: subasta_queue
+      RABBIT_QUEUE_DELETE: delete-subasta-queue
+      RABBIT_QUEUE_UPDATE: update-subasta-queue
+      RABBIT_URL: amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      RABBIT_USERNAME: xonggmoj
+    image: subastaapi
+    networks:
+      gateway-network: null
+    ports:
+      - mode: ingress
+        target: 5200
+        published: "5200"
+        protocol: tcp
+  users.api:
+    build:
+      context: C:\Users\Usuario\RiderProjects\NextBid\Microservicio-Usuario\Users.API
+      dockerfile: Users.API/Dockerfile
+    environment:
+      RABBIT_PASSWORD: CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      RABBIT_QUEUE: Users_queue
+      RABBIT_QUEUE_DELETE: UsersDelete_queue
+      RABBIT_QUEUE_UPDATE: UsersUpdate_queue
+      RABBIT_URL: amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      RABBIT_USERNAME: xonggmoj
+    image: usersapi
+    networks:
+      gateway-network: null
+    ports:
+      - mode: ingress
+        target: 5200
+        published: "5103"
+        protocol: tcp
+networks:
+  gateway-network:
+    name: dockercompose4229663052195479154_gateway-network
+    driver: bridge
