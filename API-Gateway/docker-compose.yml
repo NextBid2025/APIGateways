@@ -111,7 +111,7 @@ services:
       - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_REALM=master
       - KEYCLOAK_CLIENT_ID=Usersclient
-      - KEYCLOAK_CLIENT_SECRET=dGQ6trqaAjWwYNBRKMNmQ9AN10c0p3Sh
+      - KEYCLOAK_CLIENT_SECRET=riHoCg1rAKIcd8loDdLIqMcR3DzexaDZ
     
   
   rabbitmq:
