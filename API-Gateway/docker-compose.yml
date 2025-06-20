@@ -32,6 +32,14 @@ services:
       - RABBIT_QUEUE=productos_queue
       - RABBIT_QUEUE_UPDATE=productosUpdate_queue
       - RABBIT_QUEUE_DELETE=productosdelete_queue
+      - MONGODB_CNN_READ=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_NAME_READ=product_read
+      - MONGODB_NAME_WRITE=product_write
+      - CLOUDINARY_URL=cloudinary://395359435159368:bdmFxshOSQseyDClGPzXqSRsAXE@mediaflows_5f35b392-be88-4e23-b142-ed6340d0d341
+      - CLOUDINARY_CLOUD_NAME=mediaflows_5f35b392-be88-4e23-b142-ed6340d0d341
+      - CLOUDINARY_API_KEY=395359435159368
+      - CLOUDINARY_API_SECRET=bdmFxshOSQseyDClGPzXqSRsAXE
       - ASPNETCORE_URLS=http://+:5600
   puja.api:
     image: ${DOCKER_REGISTRY-}pujaapi
@@ -95,12 +103,34 @@ services:
       - RABBIT_QUEUE_UPDATE=UsersUpdate_queue
       - RABBIT_QUEUE_DELETE=UsersDelete_queue
       - ASPNETCORE_URLS=http://+:5103
-
+      - MONGODB_CNN_READ=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_NAME_READ=User_read
+      - MONGODB_NAME_WRITE=User_write
+      - CONFIRMATION_BASE_URL=http://localhost:3000
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_REALM=master
+      - KEYCLOAK_CLIENT_ID=Usersclient
+      - KEYCLOAK_CLIENT_SECRET=dGQ6trqaAjWwYNBRKMNmQ9AN10c0p3Sh
+    
+  
   rabbitmq:
     image: rabbitmq:3-management
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - gateway-network
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin123
+    command: start-dev
     networks:
       - gateway-network
 
