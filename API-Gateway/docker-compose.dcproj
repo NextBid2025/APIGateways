@@ -17,6 +17,14 @@
     <None Include=".dockerignore" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="themes\nextbid-email\email\html\email-test.ftl" />
+    <Content Include="themes\nextbid-email\email\html\emailLayout.ftl" />
+    <Content Include="themes\nextbid-email\email\html\executeActions.ftl" />
     <Content Include="themes\nextbid-email\email\html\verify-email.ftl" />
+    <Content Include="themes\nextbid-email\email\messages\messages_en.properties" />
+    <Content Include="themes\nextbid-email\email\text\email-test.ftl" />
+    <Content Include="themes\nextbid-email\email\text\emailLayout.ftl" />
+    <Content Include="themes\nextbid-email\email\text\executeActions.ftl" />
+    <Content Include="themes\nextbid-email\theme.properties" />
   </ItemGroup>
 </Project>
