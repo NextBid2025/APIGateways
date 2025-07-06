@@ -1,0 +1,62 @@
+body {
+    background: #f4f6fb;
+    font-family: Arial, sans-serif;
+}
+.login-container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(10,36,99,0.08);
+    padding: 40px 32px;
+    border: 1px solid #e0e4ef;
+}
+.logo {
+    display: block;
+    margin: 0 auto 24px auto;
+    width: 120px;
+}
+h1 {
+    color: #0A2463;
+    font-size: 28px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 18px;
+}
+label {
+    color: #222;
+    font-weight: bold;
+}
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #e0e4ef;
+    font-size: 16px;
+    margin-top: 6px;
+}
+.btn-login {
+    width: 100%;
+    background: #0A2463;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.kc-feedback-text {
+    color: #d32f2f;
+    margin-bottom: 12px;
+    text-align: center;
+}
+.footer {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    margin-top: 24px;
+}

@@ -1,3 +1,8 @@
-<#ftl output_format="plainText">
-This is a really boring test email.
-${msg("emailTestBody", realmName)}
+Hello ${user.firstName},
+
+Please verify your email address by clicking the link below:
+${link}
+
+If you did not request this verification, please ignore this email.
+
+Thank you

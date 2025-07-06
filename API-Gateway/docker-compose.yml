@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   gateway.api:
@@ -14,6 +14,13 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_HTTPS_PORT=5001
+    depends_on:
+      - productos.api
+      - puja.api
+      - subasta.api
+      - users.api
+      - reclamo.api
+      - keycloak
 
   productos.api:
     image: ${DOCKER_REGISTRY-}productosapi
@@ -22,8 +29,6 @@ services:
       dockerfile: Productos.API/Dockerfile
     ports:
       - "5600:5600"
- 
-     
     networks:
       - gateway-network
     environment:
@@ -42,6 +47,7 @@ services:
       - CLOUDINARY_API_KEY=395359435159368
       - CLOUDINARY_API_SECRET=bdmFxshOSQseyDClGPzXqSRsAXE
       - ASPNETCORE_URLS=http://+:5600
+
   puja.api:
     image: ${DOCKER_REGISTRY-}pujaapi
     build:
@@ -64,7 +70,6 @@ services:
       - MONGODB_NAME_WRITE=Puja_Write
       - ASPNETCORE_URLS=http://+:5201
       - SUBASTA_SERVICE_URL=http://subasta.api:5200
-      
 
   subasta.api:
     image: ${DOCKER_REGISTRY-}subastaapi
@@ -87,8 +92,12 @@ services:
       - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - MONGODB_NAME_READ=subasta_read
       - MONGODB_NAME_WRITE=subasta_write
+      - PRODUCT_SERVICE_URL=http://productos.api:5600
+
   users.api:
     image: ${DOCKER_REGISTRY-}usersapi
+    depends_on:
+      - keycloak
     build:
       context: ../../Microservicio-Usuario/Users.API
       dockerfile: Users.API/Dockerfile
@@ -103,18 +112,41 @@ services:
       - RABBIT_QUEUE=Users_queue
       - RABBIT_QUEUE_UPDATE=UsersUpdate_queue
       - RABBIT_QUEUE_DELETE=UsersDelete_queue
+      - RABBIT_QUEUE_ACTIVITY=Actividad_Users
       - ASPNETCORE_URLS=http://+:5103
       - MONGODB_CNN_READ=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_CNN_READ_ACTIVITY=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - MONGODB_NAME_READ=User_read
       - MONGODB_NAME_WRITE=User_write
+      - MONGODB_NAME_READ_ACTIVITY=ActividadUserRead
       - CONFIRMATION_BASE_URL=http://localhost:3000
       - KEYCLOAK_URL=http://keycloak:8080
-      - KEYCLOAK_REALM=master
+      - KEYCLOAK_REALM=UsersSubasta2025
       - KEYCLOAK_CLIENT_ID=Usersclient
       - KEYCLOAK_CLIENT_SECRET=riHoCg1rAKIcd8loDdLIqMcR3DzexaDZ
-    
-  
+
+  reclamo.api:
+    image: ${DOCKER_REGISTRY-}reclamoapi
+    build:
+      context: ../../Microservicio-Reclamo/API.Reclamo
+      dockerfile: Reclamo.API/Dockerfile
+    ports:
+      - "5300:5300"
+    networks:
+      - gateway-network
+    environment:
+      - MONGODB_CNN_READ=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_CNN_WRITE=mongodb+srv://aledance:1234@cluster0.y9o6cor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - MONGODB_NAME_READ=Reclamo_read
+      - MONGODB_NAME_WRITE=Reclamo_write
+      - RABBIT_URL=amqps://xonggmoj:CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-@kangaroo.rmq.cloudamqp.com/xonggmoj
+      - RABBIT_USERNAME=xonggmoj
+      - RABBIT_PASSWORD=CrASQgnUWMJ_xBq2icgdoTz3h8snzbi-
+      - RABBIT_QUEUE=reclamo_queue
+      - RABBIT_QUEUE_RESOLVER=reclamo_resolver_queue
+      - ASPNETCORE_URLS=http://+:5300
+
   rabbitmq:
     image: rabbitmq:3-management
     ports:
@@ -122,15 +154,15 @@ services:
       - "15672:15672"
     networks:
       - gateway-network
-  
+
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     ports:
       - "8080:8080"
     environment:
-      - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin123
+      - KEYCLOAK_OPTIMIZED=true
     command: start-dev
     networks:
       - gateway-network
